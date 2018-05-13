@@ -1,7 +1,7 @@
 const http = require('http');
 const express = require('express');
 const app = express();
-const mongoose = require('./db/mongoose.js');
+//const mongoose = require('./db/mongoose.js');
 
 module.exports = class App{
   start(){
@@ -10,20 +10,23 @@ module.exports = class App{
     });
 
     app.get("/insert/:title/:content/:author", (req,res) => {
-      var newUser = new mongoose.UserData({
+      /*var newUser = new mongoose.UserData({
         title: req.params.title,
         content: req.params.content,
         author: req.params.author
       })
       newUser.save();
+      */
       res.send("good boy");
     });
 
     app.get('/getAllBooks', (req,res) => {
-      mongoose.UserData.find({title: "title1"})
+      /*mongoose.UserData.find({title: "title1"})
         .then(function(doc){
           res.send(doc);
         });
+      */
+      res.send("Get all books");
     });
 
     app.get("/getBookByID/:id", (req,res) => {
