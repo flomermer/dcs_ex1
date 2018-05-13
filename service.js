@@ -1,7 +1,7 @@
 const http = require('http');
 const express = require('express');
 const app = express();
-//const mongoose = require('./db/mongoose.js');
+const mongoose = require('./db/mongoose.js');
 
 module.exports = class App{
   start(){
