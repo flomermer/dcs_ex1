@@ -21,7 +21,7 @@ module.exports = class App{
     });
 
     app.get('/getAllBooks', (req,res) => {
-      mongoose.UserData.find({title: "title1"})
+      mongoose.UserData.find()
         .then(function(doc){
           res.send(doc);
         });
