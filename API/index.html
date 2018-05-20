@@ -4,32 +4,12 @@
     <meta charset="utf-8">
     <title>EX1 - API - Tomer Flom</title>
 
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="includes/style.css">
     <link rel="stylesheet" type="text/css" href="jquery/plugins/prettyJSON/jquery.jsonPresenter.css">
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="jquery/plugins/prettyJSON/jquery.jsonPresenter.js"></script>
-
-    <script>
-      $("document").ready(function(){
-        $(".respond").each(function(){
-          renderRespond($(this));
-        })
-      })
-
-      function renderRespond(res){
-        var url = res.data("url");
-        var verb = res.data("verb");
-        $.ajax({
-          url: url,
-          type: verb,
-          success: function(json){
-            json = json.filter((i, index) => (index < 2)); //if array length is big -> display only first 2 objects
-            res.jsonPresenter({json});
-          }
-        })
-      }
-  </script>
+    <script src="includes/script.js"></script>
   </head>
   <body>
     <div class='wrapper'>
@@ -74,11 +54,12 @@
             <ul>
               <li>Relative Path: <span>/getBookByAge/:age</span></li>
               <li>Verb: <span>POST</span></li>
-              <li>URL: <a href='#' target='_blank'>https://ex1-service.herokuapp.com/getBookByAge/3</a></li>
+              <li>URL: <a href='#'>https://ex1-service.herokuapp.com/getBookByAge/3</a></li>
+              <li>Description: get all books which: minAge <= age <= maxAge
               <li>RESPOND:
                 <ul>
                   <li>
-                    <div class='respond' data-url='https://ex1-service.herokuapp.com/getBookByAge/3' data-verb='POST'>
+                    <div class='respond' data-url='/getBookByAge/3' data-verb='POST'>
 
                     </div>
                   </li>
@@ -91,12 +72,27 @@
             <ul>
               <li>Relative Path: <span>/getBookByRating/:stars/:votes?</span></li>
               <li>Verb: <span>PUT</span></li>
-              <li>URL: <a href='#' target='_blank'>https://ex1-service.herokuapp.com/getBookByRating/3.8/2200</a></li>
-              <li>Description: Get all books which their rating is at least 3.8 and has 2200 votes minimum</li>
+              <li>URL: <a href='#'>https://ex1-service.herokuapp.com/getBookByRating/3.8/80000</a></li>
+              <li>Description: Get all books which their rating is at least 3.8 and has 2200 votes minimum.</li>
+              <li>Params: stars is required. votes is optional.</li>
               <li>RESPOND:
                 <ul>
                   <li>
-                    <div class='respond' data-url='https://ex1-service.herokuapp.com/getBookByRating/3.8/2200' data-verb='PUT'>
+                    <div class='respond' data-url='/getBookByRating/3.8/80000' data-verb='PUT'>
+
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+
+          <li><span class='title'>Error Handling:</span>
+            <ul>
+              <li>RESPOND:
+                <ul>
+                  <li>
+                    <div id="errorRespond">
 
                     </div>
                   </li>
