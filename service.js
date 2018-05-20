@@ -7,7 +7,7 @@ const Book = require('./db/book.js');
 module.exports = class App{
   start(){
     app.use(express.static("."));
-    
+
     app.get("/", (req,res) => {
       res.redirect('/API');
     });
@@ -33,7 +33,7 @@ module.exports = class App{
           })
         });
     });
-    app.get("/getBooksByAge/:age", (req,res) => {
+    app.post("/getBookByAge/:age", (req,res) => {
       let age = req.params.age;
       Book.find({
         minAge: {$lte : age},
@@ -48,7 +48,7 @@ module.exports = class App{
           })
         });
     });
-    app.get("/getBooksByRating/:stars/:votes?", (req,res) => {
+    app.put("/getBookByRating/:stars/:votes?", (req,res) => {
       let stars = req.params.stars;
       let votes = req.params.votes;
       if(votes==undefined) votes=0;

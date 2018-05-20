@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css?family=Kavivanar|Slabo+27px');
+
+*{
+  font-family: 'Slabo 27px', serif;
+}
+a{text-decoration: none;}
+h1{
+  font-family: 'Kavivanar', cursive;
+}
+
+.ulAPI{
+  list-style: none;
+}
+.ulAPI .title{
+  font-weight: bold;
+  margin-top: 30px;
+  display:block;
+}
+.ulAPI li a{
+  color:blue;
+}
+.ulAPI li a:hover{
+  text-decoration: underline;;
+}
+.ulAPI ul ul{
+  list-style: none;
+}
