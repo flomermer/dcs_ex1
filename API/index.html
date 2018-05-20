@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>EX1 - API - Tomer Flom</title>
+
+    <link rel="stylesheet" type="text/css" href="jquery/plugins/prettyJSON/jquery.jsonPresenter.css">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="jquery/plugins/prettyJSON/jquery.jsonPresenter.js"></script>
+
+    <script>
+      $("document").ready(function(){
+        $(".respond").each(function(){
+          renderRespond($(this));
+        })
+      })
+
+      function renderRespond(res){
+        var url = res.data("url");
+        var verb = res.data("verb");
+        $.ajax({
+          url: url,
+          type: verb,
+          success: function(data){
+            res.jsonPresenter({
+              json: data
+            })
+          }
+        })
+      }
+  </script>
+  </head>
+  <body>
+    <div class='wrapper'>
+      <h1>EX1 - BookStore - API</h1>
+      <article>
+        <ul>
+          <li>Get All Books
+            <ul>
+              <li>Relative Path: /getAllBooks</li>
+              <li>Verb: Get</li>
+              <li>URL: https://tomerflom.com</li>
+              <li>RESPOND:
+                <ul>
+                  <li>
+                    <div class='respond' data-url='/getAllBooks' data-verb='GET'>
+
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </article>
+    </div>
+
+  </body>
+</html>

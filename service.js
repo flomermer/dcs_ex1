@@ -1,41 +1,70 @@
 const http = require('http');
 const express = require('express');
 const app = express();
-const mongoose = require('./db/mongoose.js');
+const path = require('path');
+const Book = require('./db/book.js');
 
 module.exports = class App{
   start(){
+    app.use(express.static("."));
+    
     app.get("/", (req,res) => {
-      res.send("this is my root!");
+      res.redirect('/API');
     });
 
-    app.get("/insert/:title/:content/:author", (req,res) => {
-      var newUser = new mongoose.UserData({
-        title: req.params.title,
-        content: req.params.content,
-        author: req.params.author
-      })
-      newUser.save();
-
-      res.send("good boy");
+    app.get("/API", (req,res) => {
+      res.sendFile(path.join(__dirname + '/API/index.html'));
     });
 
-    app.get('/getAllBooks', (req,res) => {
-      mongoose.UserData.find()
+    app.get("/getAllBooks", (req,res) => {
+      Book.find()
         .then(function(doc){
-          res.send(doc);
+          res.json(doc);
         });
     });
-
     app.get("/getBookByID/:id", (req,res) => {
-      mongoose.UserData.find({title: req.params.id})
+      Book.find({_id: req.params.id})
         .then(function(doc){
-          res.send(doc);
+          res.json(doc);
+        }).catch(function(err){
+          res.json({
+            status: "failure",
+            error: "bookID not exists"
+          })
         });
     });
+    app.get("/getBooksByAge/:age", (req,res) => {
+      let age = req.params.age;
+      Book.find({
+        minAge: {$lte : age},
+        maxAge: {$gte : age}
+      })
+        .then(function(doc){
+          res.json(doc);
+        }).catch(function(err){
+          res.json({
+            status: "failure",
+            error: err
+          })
+        });
+    });
+    app.get("/getBooksByRating/:stars/:votes?", (req,res) => {
+      let stars = req.params.stars;
+      let votes = req.params.votes;
+      if(votes==undefined) votes=0;
 
-    app.put("/getTwoParams/:id1/:id2", (req,res) => {
-      res.send(`PUT: this is two params: id1=${req.params.id1} , id2=${req.params.id2}`);
+      Book.find({
+        'rating.stars' : {$gte : stars},
+        'rating.votes' : {$gte : votes}
+      })
+        .then(function(doc){
+          res.json(doc);
+        }).catch(function(err){
+          res.json({
+            status: "failure",
+            error: err
+          })
+        });
     });
 
     http.createServer(app).listen(process.env.PORT || 8000);
