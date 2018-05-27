@@ -15,7 +15,7 @@ module.exports = class App{
     app.get("/API", (req,res) => {
       res.sendFile(path.join(__dirname + '/API/index.html'));
     });
-    
+
     app.get("/getAllBooks", (req,res) => {
       Book.find()
         .then(function(doc){
@@ -67,6 +67,10 @@ module.exports = class App{
         });
     });
 
+    app.get("*",(req,res)=>{
+      res.send("my 404 - not found");
+    });
+    
     http.createServer(app).listen(process.env.PORT || 8000);
     console.log("listening on localhost:8000");
   }
